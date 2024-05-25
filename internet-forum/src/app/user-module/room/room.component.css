@@ -1,0 +1,100 @@
+
+
+
+.container{
+    width: 100%;
+    
+    padding: 10px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 10px;
+    margin-left: 0;
+    
+}
+
+.even-list-item{
+    background-color: aliceblue;
+ 
+   
+}
+
+.odd-list-item{
+    background-color: aquamarine;
+    
+}
+
+.new-list-item-odd{
+    background-image: linear-gradient(135deg, transparent 50%, rgba(0, 0, 0, 0.5) 80%);
+    background-color: aquamarine;
+}
+
+.new-list-item-even{
+    background-image: linear-gradient(135deg, transparent 50%, rgba(0, 0, 0, 0.5) 80%);
+    background-color: aliceblue;
+}
+
+#add-button{
+    flex: 1
+}
+#room-header{
+    flex: 6;
+}
+
+mat-list{
+    width: 98%;
+
+    
+    border-radius: 10px;
+    border: 3px solid aquamarine;
+   
+}
+
+
+
+.user-section{
+    flex: 1
+}
+.comment-content-section{
+    flex: 4;
+    padding: 5px;
+    white-space: wrap;
+    word-break: break-all;
+    
+    
+}
+.vertical-container{
+    align-items: center;
+    padding: 5px;
+    
+}
+
+.horizontal-container{
+    align-items: flex-start;
+    flex-wrap: wrap;
+   
+}
+
+.custom-list-item{
+   
+}
+
+
+mat-list mat-list-item{
+    height: fit-content;
+    padding: 0;
+    
+    margin: 0;
+    border: 1px solid #ccc
+}
+
+.vertical-container{
+    align-items: center;
+}
+
+.actions-container{
+    flex: 0.5;
+    flex-wrap: wrap;
+    justify-content: right;
+}
+
+

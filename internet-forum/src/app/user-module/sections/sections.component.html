@@ -1,0 +1,13 @@
+<div class="container">
+    <mat-list>
+        <mat-list-item *ngFor="let room of rooms; let i = index" (click)="openRoom(room.id)" [ngClass]="{'even-list-item': i % 2 === 0, 'odd-list-item': i % 2 !== 0}">
+            {{room.name}}
+
+            <div *ngIf="room.newCommentsCount" class="new-comments-count">
+                <span>{{room.newCommentsCount}} comments waiting approval</span>
+            </div>
+        </mat-list-item>
+    </mat-list>
+   
+
+</div>

@@ -1,0 +1,21 @@
+textarea{
+    height: fit-content;
+}
+
+mat-form-field{
+    width: 100%;
+   height: fit-content;
+}
+
+mat-dialog-content{
+    width: 100%;
+}
+
+mat-dialog-action{
+    width: 100%;
+    
+}
+
+.textarea{
+    width: 100%;
+}

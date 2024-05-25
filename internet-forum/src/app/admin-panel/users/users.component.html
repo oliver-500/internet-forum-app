@@ -1,0 +1,102 @@
+<div class="container">
+
+    <mat-list>
+
+        <div class="vertical-container">
+            <div id="users-header">
+                <h2>Users</h2>
+            </div>
+
+
+
+        </div>
+
+        <mat-list-item *ngFor="let item of this.items , let i = index"
+        
+        [ngClass]="{
+            'even-list-item': i % 2 === 0 && item.user?.registered, 
+            'odd-list-item': i % 2 === 1 && item.user?.registered,
+            'new-list-item-odd': i % 2 === 1 && !item.user?.registered,
+            'new-list-item-even': i % 2 === 0 && !item.user?.registered}"
+        >
+
+            <form [formGroup]="item.formGroup" (ngSubmit)="onSubmit(i)">
+
+                <div class="vertical-container">
+
+                    <div class="horizontal-container">
+                        <span class="username">
+                            {{item.user!.username}}
+                        </span>
+
+                        <mat-slide-toggle formControlName="isRegistered" 
+                            [color]="this.color" (change)="expandItem(i, true)">
+
+                            {{item.user!.registered === true ? " Registered" : "Waiting registration"}}
+                        </mat-slide-toggle>
+
+
+                    </div>
+
+                    <div *ngIf="item.isExpanded === true" class="vertical-container" >
+
+                        <div class="horizontal-container" class="user-type-container">
+                            <span>User type:</span>
+                            <mat-radio-group [color]="this.color"  formControlName="userType" aria-label="Select an user type">
+                                <mat-radio-button value="0">Forum User</mat-radio-button>
+                                <mat-radio-button value="1">Moderator</mat-radio-button>
+                                <mat-radio-button value="2">Admin</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <div class="table-container">
+                            <table mat-table [dataSource]="item.userAccess?.accessesRoom!" class="mat-elevation-z8" >
+
+                                <ng-container matColumnDef="Room">
+                                    <th mat-header-cell *matHeaderCellDef>Room</th>
+                                    <td mat-cell *matCellDef="let item">{{ item.name }}</td>
+                                  </ng-container>
+
+                                
+                                <div *ngFor="let permissionType of permissionTypes">
+                                    <ng-container  [matColumnDef]="permissionType.name">
+                                        <th mat-header-cell *matHeaderCellDef> {{permissionType.name}} </th>
+                                        <td mat-cell *matCellDef="let itemm"> 
+                                        <!-- <mat-checkbox *formControlName="permissionType.name + item.room.id"></mat-checkbox> -->
+                                        <mat-checkbox *ngIf="item.formGroup" [ngModel]="item.formGroup.get(permissionType.name + itemm.id) !== null ?
+                                        item.formGroup.get(permissionType.name + itemm.id)!.value : false" [color]="this.color"
+                                        (ngModelChange)="changePermission(i, permissionType, itemm.id)"
+                                        [ngModelOptions]="{standalone: true}"></mat-checkbox>
+                                        </td>
+                                       
+                                        
+                                    </ng-container>
+                                </div>
+                               
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            
+                            </table>
+                        </div>
+                       
+
+                        <div class="user-actions-container">
+                            <button mat-raised-button (click)="expandItem(i, false)">
+                                Cancel
+                            </button>
+                            <button mat-raised-button (click)="save(i)">
+                                Save
+                            </button>
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+            </form>
+
+        </mat-list-item>
+
+    </mat-list>
+</div>

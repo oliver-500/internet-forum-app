@@ -1,0 +1,30 @@
+<div class="container">
+
+    <form [formGroup]="confirmationForm" (ngSubmit)="onFormSubmit()" class="login-form">
+        <div class="auth-container">
+            <h2>{{username}}, enter confirmation code sent to your email address</h2>
+            <mat-form-field class="form-item">
+                <mat-label>Code</mat-label>
+                <input matInput type="text" formControlName="code">
+
+            </mat-form-field>
+
+        
+            <button class="form-item" mat-flat-button type="submit" [disabled]="!confirmationForm.valid || isWaitingForResponse">Confirm</button>
+
+            <div class="horizontal-container" class="form-item">
+        
+               
+                <a routerLink="/auth/login">Go back</a>
+            </div>
+
+            <h4>{{message}}</h4>
+          
+        </div>
+
+       
+    </form>
+
+
+</div>
+

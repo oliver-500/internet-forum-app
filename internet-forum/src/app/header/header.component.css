@@ -1,0 +1,30 @@
+.container{
+    background-color: aquamarine;
+    height: 20px;
+}
+
+.home-page-link{
+    font-size: large;
+}
+
+.horizontal-container{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.links{
+    flex: 7
+}
+.horizontal-user-container{
+    flex: 2;
+    align-items: center;
+    justify-content: right;
+    display: flex;
+    flex-direction: row;
+}
+
+.item{
+    margin: 5px;
+}

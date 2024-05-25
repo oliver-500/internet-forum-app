@@ -1,0 +1,39 @@
+<div class="container">
+
+    <form [formGroup]="signupForm" (ngSubmit)="onFormSubmit()" class="login-form">
+        <div class="auth-container">
+            <h2>Register your account</h2>
+            <mat-form-field class="form-item">
+                <mat-label>Username</mat-label>
+                <input matInput type="text" formControlName="username">
+
+            </mat-form-field>
+
+            <mat-form-field class="form-item">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email">
+            </mat-form-field>
+
+            <mat-form-field class="form-item">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password">
+            </mat-form-field>
+
+
+
+            <button class="form-item" mat-flat-button type="submit" [disabled]="!signupForm.valid">Sign up</button>
+
+            <div class="horizontal-container" class="form-item">
+                <h3>Already registered?</h3> 
+                <a routerLink="/auth/login">Sign in</a>
+            </div>
+
+            <h4>{{message}}</h4>
+        </div>
+
+       
+    </form>
+
+
+</div>
+

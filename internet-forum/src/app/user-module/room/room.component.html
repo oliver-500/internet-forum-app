@@ -1,0 +1,85 @@
+<div class="container">
+   
+    <mat-list>
+      
+        <div class="vertical-container">
+            <div  id="room-header">
+                <h2>{{room?.name}}</h2>
+            </div>
+            
+            <div id="add-button">
+                <button  [disabled]="!doesPermissionExist('create', true)" mat-icon-button (click)="openNewCommentDialog()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            
+        </div>
+        <div class="vertical-container">
+            <mat-paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)" [length]="room?.comments?.length" (page)="onPageChange($event)">
+            </mat-paginator>
+        </div>
+       
+        <mat-list-item  *ngFor="let comment of pagedComments , let i = index" [ngClass]="{
+            'even-list-item': i % 2 === 0 && comment.approved, 
+            'odd-list-item': i % 2 === 1 && comment.approved,
+            'new-list-item-odd': i % 2 === 1 && !comment.approved,
+            'new-list-item-even': i % 2 === 0 && !comment.approved}" >
+            <div class="horizontal-container">
+
+                <div class="vertical-container">
+
+                    <div class="">
+                        {{comment.author}}
+                    </div>
+
+                    <div>
+
+                         {{formatDate(comment.postedDatetime?.toString())}}
+
+                    </div>
+
+                </div>
+
+                <div class="comment-content-section">
+                  {{comment.content}}
+
+                    
+                </div>
+
+                <div class="vertical-container">
+                    <div class="horizontal-container" class="actions-container">
+                        <button *ngIf="doesPermissionExist('update', comment.approved!)" mat-icon-button (click)="openEditCommentDialog(i)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                       
+                       
+    
+                        <button *ngIf="!comment.approved" mat-icon-button  (click)="approveComment(i)">
+                            <mat-icon>done</mat-icon>
+                         
+                        </button>
+
+                        <button *ngIf="comment.approved && doesPermissionExist('update', comment.approved!)" mat-icon-button [disabled]="!comment.isEdited" (click)="updateComment(i)">
+                            <mat-icon>save</mat-icon>
+                        </button>
+                      
+    
+                        <button *ngIf="doesPermissionExist('delete', comment.approved!)" mat-icon-button (click)="deleteComment(comment.id!, comment.approved!)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        
+                    </div>
+                    <div *ngIf="!comment.approved">Waiting approval</div>
+                </div>
+
+              
+                
+                
+            </div>
+            
+            
+        </mat-list-item>
+
+    </mat-list>
+
+</div>

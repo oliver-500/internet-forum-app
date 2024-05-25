@@ -1,0 +1,34 @@
+<div class="container">
+
+    <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()" class="login-form">
+        <div class="auth-container">
+            <h2>Log in to your account</h2>
+            <mat-form-field class="form-item">
+                <mat-label>Username</mat-label>
+                <input matInput type="text" formControlName="username">
+
+            </mat-form-field>
+
+            <mat-form-field class="form-item">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password">
+            </mat-form-field>
+
+            <button class="form-item" mat-flat-button type="submit" [disabled]="!loginForm.valid">Log in</button>
+
+            <div class="horizontal-container" class="form-item">
+                <h3>Not registered?</h3> 
+                <a routerLink="/auth/signup">Sign up</a>
+            </div>
+
+            <button mat-flat-button (click)="logInGithub()">Log in with Github</button>
+            <h4>{{message}}</h4>
+
+        </div>
+
+       
+    </form>
+
+
+</div>
+

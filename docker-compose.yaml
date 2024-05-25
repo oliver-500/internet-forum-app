@@ -1,0 +1,76 @@
+services:
+  forum-db:
+    build: ./baza_podataka/
+    ports: 
+      - '3307:3306'
+    volumes: 
+      - forum-mysql-data:/var/lib/mysql
+    env_file: 
+      - ./baza_podataka/.env
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u", "${MYSQL_ROOT_USERNAME}", "--password=${MYSQL_ROOT_PASSWORD}"]
+      timeout: 10s
+      retries: 5
+  jwtcontrollerapp:
+    build: ./forum_jwt_controller
+    ports:
+      - '9002:9002'
+      #skloniti kasnije ovo je samo za devtools
+    env_file:
+      - ./forum_jwt_controller/.env
+    depends_on:
+      forum-db:
+        condition: service_healthy
+  authcontrollerapp:
+    build: ./forum_authentication_controller
+    ports:
+      - '9001:9001'
+      #skloniti kasnije ovo je samo za devtools
+    env_file:
+      - ./forum_authentication_controller/.env
+    depends_on:
+      - 'jwtcontrollerapp'
+  accesscontrollerapp:
+    build: ./forum_access_controller
+    ports:
+      - '9000:9000'
+    env_file:
+      - ./forum_access_controller/.env
+    depends_on:
+      - 'jwtcontrollerapp'
+      - 'authcontrollerapp'
+  webserverapp:
+    build: ./forum_web_server
+    ports:
+      - '9004:9004'
+    env_file:
+      - ./forum_web_server/.env
+    depends_on:
+      forum-db:
+        condition: service_healthy
+  nginx_proxy:
+    build: ./nginx_proxy
+    ports: 
+      - '4430:443'
+    depends_on:
+      - 'accesscontrollerapp'
+  wafapp:
+    build: ./forum_waf
+    ports:
+      - '9003:9003'
+    env_file:
+      - ./forum_waf/.env
+    depends_on:
+      - 'accesscontrollerapp'
+  siemapp:
+    build: ./forum_siem
+    ports:
+      - '9005:9005'
+    env_file:
+      - ./forum_siem/.env
+    depends_on:
+      - 'accesscontrollerapp'
+      
+volumes:
+  forum-mysql-data:
+       

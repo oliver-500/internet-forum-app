@@ -1,0 +1,18 @@
+<mat-dialog-content>
+    <h2 *ngIf="!data.isEdit">Add new comment to room: <i>{{data.room}}</i></h2>
+    <h2 *ngIf="data.isEdit">Edit comment by <i>{{comment.author}}</i></h2>
+
+    <div class="textarea">
+        <mat-form-field appearance="fill">
+            <textarea spellcheck="false" matInput placeholder="Enter comment" name="comment" [(ngModel)]="comment.content"></textarea>
+        </mat-form-field>
+    </div>
+   
+
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onCancelClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="comment.content" (click)="onSaveClick()"
+        [disabled]="comment.content?.length! == 0">Save</button>
+</mat-dialog-actions>

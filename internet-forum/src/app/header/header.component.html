@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="horizontal-container">
+        <div class="links"  >
+            <span class="item">
+                <a  class="home-page-link" href="/home/rooms">Internet forum</a>
+            </span>
+
+            <span class="item">
+                <a  class="home-page-link"  href="/home/rooms"  *ngIf="this.authService.user">Rooms</a>
+            </span>
+
+            <span class="item">
+                <a  class="home-page-link"  href="/admin/users" *ngIf="this.authService.user && this.authService.user.userGroup !== 0">Users</a>
+            </span>
+            
+           
+        </div>
+       
+        <div class="horizontal-user-container">
+            <span class="item" *ngIf="this.authService.user !== null">{{this.authService.user.username}}</span>
+            <button  *ngIf="this.authService.user != null && this.authService.user.loggedIn" mat-flat-button (click)="logout()">Log out</button>
+        </div>
+       
+    </div>
+    
+</div>
